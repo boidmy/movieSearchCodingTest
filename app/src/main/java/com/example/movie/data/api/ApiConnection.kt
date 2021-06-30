@@ -8,10 +8,10 @@ class ApiConnection {
 
     private val retrofit: Retrofit
 
-    private val baseUrl = "https://datewidget-ab4ba.firebaseio.com/"
+    private val baseUrl = "http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp/"
 
-    private val retrofitService: ApiConnection
-        get() = retrofit.create(ApiConnection::class.java)
+    val retrofitService: ApiService
+        get() = retrofit.create(ApiService::class.java)
 
     init {
         retrofit = Retrofit.Builder()
