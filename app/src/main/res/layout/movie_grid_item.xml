@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="15dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="15dp" />
+
+    <ImageView
+        android:id="@+id/posterImg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@+id/guidEnd"
+        app:layout_constraintStart_toStartOf="@+id/guidStart"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="#F41919" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/posterImg"
+        app:layout_constraintStart_toStartOf="@+id/guidStart"
+        app:layout_constraintEnd_toEndOf="@+id/guidEnd"
+        tools:text="아이언맨"/>
+
+    <TextView
+        android:id="@+id/director"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintStart_toStartOf="@+id/guidStart"
+        app:layout_constraintEnd_toEndOf="@+id/guidEnd"
+        tools:text="봉준호 감독"/>
+
+    <TextView
+        android:id="@+id/openingDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/director"
+        app:layout_constraintStart_toStartOf="@+id/guidStart"
+        app:layout_constraintEnd_toEndOf="@+id/guidEnd"
+        tools:text="봉준호 감독"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
