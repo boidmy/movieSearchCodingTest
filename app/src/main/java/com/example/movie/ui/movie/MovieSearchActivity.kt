@@ -33,10 +33,7 @@ class MovieSearchActivity : BaseActivity<ActivitySearchMovieBinding>() {
     private fun bind() {
         binding.movieRv.apply {
             adapter = movieAdapter
-            val animator = itemAnimator
-            if (animator is SimpleItemAnimator) {
-                animator.supportsChangeAnimations = false
-            }
+            (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         }
         listLoadMore()
     }

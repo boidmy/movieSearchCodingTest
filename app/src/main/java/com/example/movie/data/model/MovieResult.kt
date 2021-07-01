@@ -54,24 +54,6 @@ data class MovieResult(
         return title ?: ""
     }
 
-    /*fun getDateFormat(): String {
-        return try {
-            if (repRlsDate.isNullOrEmpty()) {
-                ""
-            } else {
-                val originalFormat = SimpleDateFormat("yyyyMMdd", Locale.KOREA)
-                val format = SimpleDateFormat("yyyy.MM.dd", Locale.KOREA)
-                val originalData = originalFormat.parse(repRlsDate)
-                val formatDate = originalData?.let {
-                    format.format(it)
-                }
-                formatDate ?: ""
-            }
-        } catch (e: ParseException) {
-            ""
-        }
-    }*/
-
     fun getDateFormat(): String {
         if (repRlsDate.isNullOrEmpty()) return ""
         return try {
@@ -88,15 +70,22 @@ data class MovieResult(
     }
 
     fun getPoster(): String {
-        val url = posters?.let {
+        return posters?.let {
             it.split("|").run {
                 getOrNull(0)
             }
-        }
-        return url ?: ""
+        } ?: ""
     }
 
     fun getDirector(): String {
         return directors?.director?.getOrNull(0)?.directorNm ?: ""
+    }
+
+    fun getReplaceTitle(): String {
+        return title
+            ?.replace("!HS", "")
+            ?.replace("!HE", "")
+            ?.replace("  ", " ")
+            ?: ""
     }
 }
