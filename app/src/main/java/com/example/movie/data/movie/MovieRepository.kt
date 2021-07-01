@@ -5,5 +5,5 @@ import com.example.movie.data.model.Movie
 
 interface MovieRepository {
 
-    fun getMovieList(query: String): LiveData<Movie>
+    fun getMovieList(query: String, startCount: Int): LiveData<Movie>
 }
