@@ -15,10 +15,10 @@ class MovieSearchViewModel @Inject constructor(private val repository: MovieRepo
 
     private val _loadingImg: MutableLiveData<Boolean> = MutableLiveData()
     private val _searchKeyword: MutableLiveData<Pair<String, Int>> = MutableLiveData()
-    private var _movieList: MutableList<MovieResult> = mutableListOf()
+    private val _movieList: MutableList<MovieResult> = mutableListOf()
     private val _item: LiveData<Movie> = Transformations.switchMap(_searchKeyword) {
         _loadingImg.value = true
-        repository.getMovieList(query = it.first, startCount = it.second)
+        repository.getMovieList(keyword = it.first, startCount = it.second)
     }
     private val _emptyKeyword: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -35,19 +35,16 @@ class MovieSearchViewModel @Inject constructor(private val repository: MovieRepo
         get() = _movieList
 
     fun clickSearch(keyword: String) {
-        _movieList = mutableListOf()
-        if (keyword.isEmpty()) {
-            _emptyKeyword.value = true
-        } else {
+        _movieList.clear()
+        _emptyKeyword.value = keyword.isEmpty()
+        if (keyword.isNotEmpty())
             _searchKeyword.value = Pair(keyword, 0)
-        }
     }
 
     fun loadMore(itemCount: Int) {
         _searchKeyword.apply {
-            val keyword = value?.first
-            keyword?.let {
-                value = Pair(it, itemCount)
+            value?.first?.let { keyword ->
+                value = Pair(keyword, itemCount)
             }
         }
     }

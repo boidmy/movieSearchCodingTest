@@ -49,7 +49,9 @@ class MovieSearchActivity : BaseActivity<ActivitySearchMovieBinding>() {
         })
 
         viewModel.emptyKeyword.observe(this, {
-            this.toast(resources.getString(R.string.search_hint))
+            if (it) {
+                this.toast(resources.getString(R.string.search_hint))
+            }
         })
     }
 

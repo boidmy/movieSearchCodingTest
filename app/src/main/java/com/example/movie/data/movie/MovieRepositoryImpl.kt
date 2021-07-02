@@ -14,11 +14,11 @@ class MovieRepositoryImpl @Inject constructor() : MovieRepository {
 
     private val disposable: CompositeDisposable = CompositeDisposable()
 
-    override fun getMovieList(query: String, startCount: Int): LiveData<Movie> {
+    override fun getMovieList(keyword: String, startCount: Int): LiveData<Movie> {
         val liveData: MutableLiveData<Movie> = MutableLiveData()
         disposable.add(
             ApiConnection.instance()
-                .retrofitService.getMovieData(query, startCount)
+                .retrofitService.getMovieData(keyword, startCount)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
