@@ -11,10 +11,13 @@ import javax.inject.Inject
 class MovieSearchViewModel @Inject constructor(private val repository: MovieRepository) :
     ViewModel(), MovieController {
 
-    private val _searchKeyword: MutableLiveData<Pair<String, Int>> = MutableLiveData(Pair("아이언맨",0))
+    private val _searchKeyword: MutableLiveData<Pair<String, Int>> =
+        MutableLiveData(Pair("캡틴아메리카", 0))
+
     private val _item: LiveData<Pair<Movie?, Boolean>> = Transformations.switchMap(_searchKeyword) {
         repository.getMovieList(keyword = it.first, startCount = it.second)
     }
+
     private val _emptyKeyword: MutableLiveData<Boolean> = MutableLiveData()
 
     val item: LiveData<Pair<Movie?, Boolean>>
@@ -23,7 +26,7 @@ class MovieSearchViewModel @Inject constructor(private val repository: MovieRepo
     val emptyKeyword: LiveData<Boolean>
         get() = _emptyKeyword
 
-    override fun getItemCount() = item.value?.first?.totalCount
+    override fun getItemTotalCount() = _item.value?.first?.totalCount
 
     override fun clickSearch(keyword: String) {
         _emptyKeyword.value = keyword.isEmpty()

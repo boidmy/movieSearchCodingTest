@@ -19,7 +19,7 @@ fun movieLoadMore(rv: RecyclerView, viewModel: MovieController?) {
                 super.onScrolled(this, dx, dy)
                 if (!canScrollVertically(1)) {
                     layoutManager?.itemCount?.let { rvCount ->
-                        viewModel?.getItemCount()?.let { totalCount ->
+                        viewModel?.getItemTotalCount()?.let { totalCount ->
                             if (rvCount < totalCount && rvCount < 100) {
                                 viewModel.loadMore(rvCount)
                             }
