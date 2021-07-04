@@ -31,12 +31,12 @@ class MovieAdapter @Inject constructor() : RecyclerView.Adapter<MovieItemViewHol
 
     fun setMovieData(movie: Movie, loadMoreCheck: Boolean) {
         diffUtil.submitList(
-            if (loadMoreCheck) setLoadMore(movie.getResult())
+            if (loadMoreCheck) loadMoreNewArray(movie.getResult())
             else movie.getResult()
         )
     }
 
-    private fun setLoadMore(item: List<DiffUtilDataInterface>): List<DiffUtilDataInterface> {
+    private fun loadMoreNewArray(item: List<DiffUtilDataInterface>): List<DiffUtilDataInterface> {
         val newItem = ArrayList(currentList())
         newItem.addAll(item)
         return newItem
