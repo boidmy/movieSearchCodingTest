@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class ViewHolderBase<BINDING : ViewDataBinding>(
+abstract class ViewHolderBase<BINDING : ViewDataBinding> constructor(
     parent: ViewGroup,
     layout: Int,
     protected val binding: BINDING = DataBindingUtil.inflate(

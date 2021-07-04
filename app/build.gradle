@@ -20,7 +20,14 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    signingConfigs {
+        release {
+            storeFile file('keystore.jks')
+            storePassword "!dbstkddyd1"
+            keyAlias "movie"
+            keyPassword "!dbstkddyd1"
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false

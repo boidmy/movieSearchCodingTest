@@ -5,5 +5,6 @@ import com.example.movie.data.model.Movie
 
 interface MovieRepository {
 
-    fun getMovieList(keyword: String, startCount: Int): LiveData<Movie>
+    fun getMovieList(keyword: String, startCount: Int): LiveData<Pair<Movie?, Boolean>>
+    fun onCleared()
 }

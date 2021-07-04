@@ -3,10 +3,9 @@ package com.example.movie.ui.movie
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SimpleItemAnimator
 import com.example.movie.R
 import com.example.movie.databinding.ActivitySearchMovieBinding
+import com.example.movie.extensions.ActionManager
 import com.example.movie.extensions.toast
 import com.example.movie.ui.ViewModelFactory
 import com.example.movie.ui.base.BaseActivity
@@ -25,48 +24,31 @@ class MovieSearchActivity : BaseActivity<ActivitySearchMovieBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.viewModel = viewModel
         bind()
         observe()
     }
 
     private fun bind() {
-        binding.movieRv.apply {
-            adapter = movieAdapter
-            (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        binding.apply {
+            vm = viewModel
+            movieRv.adapter = movieAdapter
         }
-        listLoadMore()
     }
 
     private fun observe() {
-        viewModel.loadingImg.observe(this, {
+        ActionManager.loadingImg.observe(this, {
             progressContainer.isVisible = it
         })
 
         viewModel.item.observe(this, {
-            viewModel.loadingImg.value = false
-            movieAdapter.setMovieData(it.movieResult(viewModel.movieList))
+            it.first?.let { movie ->
+                movieAdapter.setMovieData(movie = movie, loadMoreCheck = it.second)
+            }
         })
 
         viewModel.emptyKeyword.observe(this, {
             if (it) {
                 this.toast(resources.getString(R.string.search_hint))
-            }
-        })
-    }
-
-    private fun listLoadMore() {
-        binding.movieRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val itemCount = binding.movieRv.layoutManager?.itemCount ?: 0
-                if (!recyclerView.canScrollVertically(1)) {
-                    viewModel.item.value?.data?.getOrNull(0)?.totalCount?.let {
-                        if (itemCount < it && itemCount < 100) {
-                            viewModel.loadMore(itemCount)
-                        }
-                    }
-                }
             }
         })
     }

@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="vm"
             type="com.example.movie.ui.movie.MovieSearchViewModel" />
     </data>
 
@@ -56,7 +56,7 @@
                         android:textColor="#000000"
                         android:textColorHint="#939393"
                         android:textSize="15dp"
-                        app:editTextAction="@{viewModel}"
+                        app:editTextAction="@{vm}"
                         app:layout_constraintEnd_toStartOf="@+id/searchBtn"
                         app:layout_constraintStart_toStartOf="@+id/searchContainer"
                         app:layout_constraintTop_toTopOf="@+id/searchContainer" />
@@ -71,10 +71,9 @@
                         app:layout_constraintBottom_toBottomOf="@+id/searchContainer"
                         app:layout_constraintEnd_toEndOf="@+id/searchContainer"
                         app:layout_constraintTop_toTopOf="@+id/searchContainer"
-                        app:movieViewModel="@{viewModel}" />
+                        app:movieViewModel="@{vm}" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -86,6 +85,7 @@
             android:orientation="vertical"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
+            app:movieLoadMore="@{vm}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:spanCount="2"

@@ -5,8 +5,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import dagger.android.support.DaggerAppCompatActivity
 
-abstract class BaseActivity<D : ViewDataBinding> : DaggerAppCompatActivity() {
-    protected lateinit var binding: D
+abstract class BaseActivity<BINDING : ViewDataBinding> : DaggerAppCompatActivity() {
+    protected lateinit var binding: BINDING
     protected abstract val layout: Int
 
     override fun onCreate(savedInstanceState: Bundle?) {

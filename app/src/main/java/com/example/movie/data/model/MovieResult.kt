@@ -71,9 +71,7 @@ data class MovieResult(
 
     fun getPoster(): String {
         return posters?.let {
-            it.split("|").run {
-                getOrNull(0)
-            }
+            it.split("|").getOrNull(0)
         } ?: ""
     }
 

@@ -8,12 +8,32 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView.OnEditorActionListener
 import androidx.databinding.BindingAdapter
-import com.example.movie.ui.movie.MovieSearchViewModel
+import androidx.recyclerview.widget.RecyclerView
+import com.example.movie.ui.movie.MovieController
 
+@BindingAdapter("movieLoadMore")
+fun movieLoadMore(rv: RecyclerView, viewModel: MovieController?) {
+    rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            with(recyclerView) {
+                super.onScrolled(this, dx, dy)
+                if (!canScrollVertically(1)) {
+                    layoutManager?.itemCount?.let { rvCount ->
+                        viewModel?.getItemCount()?.let { totalCount ->
+                            if (rvCount < totalCount && rvCount < 100) {
+                                viewModel.loadMore(rvCount)
+                            }
+                        }
+                    }
+                }
+            }
+         }
+    })
+}
 
 @BindingAdapter("editTextAction")
-fun editTextAction(editText: EditText, viewModel: MovieSearchViewModel) {
-    editText.setOnEditorActionListener(OnEditorActionListener { v, actionId, _ ->
+fun editTextAction(editText: EditText, viewModel: MovieController?) {
+    editText.setOnEditorActionListener(OnEditorActionListener { _, actionId, _ ->
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             clickSearch(editText, viewModel)
             return@OnEditorActionListener true
@@ -23,7 +43,7 @@ fun editTextAction(editText: EditText, viewModel: MovieSearchViewModel) {
 }
 
 @BindingAdapter("imageAction", "movieViewModel")
-fun imageAction(imageView: ImageView, editText: EditText, viewModel: MovieSearchViewModel) {
+fun imageAction(imageView: ImageView, editText: EditText, viewModel: MovieController?) {
     imageView.setOnClickListener {
         clickSearch(editText, viewModel)
     }
@@ -34,8 +54,8 @@ fun imageUrl(imageView: ImageView, url: String?) {
     imageView.loadUrl(url)
 }
 
-fun clickSearch(editText: EditText, viewModel: MovieSearchViewModel) {
-    viewModel.clickSearch(editText.text.toString())
+fun clickSearch(editText: EditText, viewModel: MovieController?) {
+    viewModel?.clickSearch(editText.text.toString())
     focusAndKeyboardHide(editText)
 }
 

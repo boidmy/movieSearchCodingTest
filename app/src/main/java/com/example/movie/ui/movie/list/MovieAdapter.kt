@@ -29,8 +29,16 @@ class MovieAdapter @Inject constructor() : RecyclerView.Adapter<MovieItemViewHol
         return currentList().size
     }
 
-    fun setMovieData(item: List<MovieResult>) {
-        val copyList: List<DiffUtilDataInterface> = ArrayList(item)
-        diffUtil.submitList(copyList)
+    fun setMovieData(movie: Movie, loadMoreCheck: Boolean) {
+        diffUtil.submitList(
+            if (loadMoreCheck) setLoadMore(movie.getResult())
+            else movie.getResult()
+        )
+    }
+
+    private fun setLoadMore(item: List<DiffUtilDataInterface>): List<DiffUtilDataInterface> {
+        val newItem = ArrayList(currentList())
+        newItem.addAll(item)
+        return newItem
     }
 }

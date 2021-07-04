@@ -1,4 +1,5 @@
 package com.example.movie.data.model
+
 import com.google.gson.annotations.SerializedName
 
 data class Movie(
@@ -11,10 +12,8 @@ data class Movie(
     @SerializedName("TotalCount")
     val totalCount: Int?
 ) {
-    fun movieResult(movieList: MutableList<MovieResult>): MutableList<MovieResult> {
-        data?.getOrNull(0)?.result?.let {
-            movieList.addAll(it)
-        }
-        return movieList
+
+    fun getResult(): List<MovieResult> {
+        return data?.getOrNull(0)?.result ?: listOf()
     }
 }

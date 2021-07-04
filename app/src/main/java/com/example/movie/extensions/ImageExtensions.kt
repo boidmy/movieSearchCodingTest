@@ -3,7 +3,6 @@ package com.example.movie.extensions
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.example.movie.R
 
 fun ImageView.loadUrl(url: String?) {
