@@ -70,9 +70,7 @@ data class MovieResult(
     }
 
     fun getPoster(): String {
-        return posters?.let {
-            it.split("|").getOrNull(0)
-        } ?: ""
+        return posters?.split("|")?.getOrNull(0) ?: ""
     }
 
     fun getDirector(): String {
